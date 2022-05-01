@@ -1,19 +1,19 @@
 # GOLANG TASK MANAGEMENT API
 
 # Tool
-- [ ] Gin
+- [x] Gin
 - [ ] TestContainer
 - [ ] gorm
 - [ ] postgresql
 - [ ] viper env
-- [ ] docker dev
+- [x] docker dev
 - [ ] docker prod
 - [ ] Dev env
 - [ ] Prod env
 - [ ] Clean architecture like reference
 - [ ] Redis
 - [ ] Dependency by Uber-dig
-- [ ] air for reload dev env
+- [x] air for reload dev env
 - [ ] error handler
 - [ ] custom error message code
 - [ ] validate
