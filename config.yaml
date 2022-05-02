@@ -1,0 +1,15 @@
+app:
+  env: "development"
+  port: ":8989"
+  debug: true
+
+log:
+  level: "debug"
+  format: "json"
+
+database:
+  host: "postgres"
+  port: 5432
+  username: "postgres"
+  password: test
+  dbname: postgres

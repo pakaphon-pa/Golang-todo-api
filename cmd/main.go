@@ -1,13 +1,29 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"gotaskapp/internal/app"
+	"log"
+
+	"github.com/spf13/viper"
+)
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run()
+	viper.SetConfigFile(`./config.yaml`)
+	viper.AutomaticEnv() // for global env
+
+	err := viper.ReadInConfig()
+	if err != nil {
+		panic(err)
+	}
+
+	if viper.GetString(`app.env`) == "development" {
+		log.Println("Service RUN on Development mode")
+	}
+
+	app, err := app.NewApplication().Application()
+	if err != nil {
+		panic(err)
+	}
+
+	app.Start()
 }
