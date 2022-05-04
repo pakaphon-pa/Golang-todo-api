@@ -3,6 +3,9 @@ package app
 import (
 	"fmt"
 	"gotaskapp/internal/configs"
+	"gotaskapp/internal/controllers"
+	"gotaskapp/internal/repository"
+	"gotaskapp/internal/services"
 
 	"go.uber.org/dig"
 )
@@ -15,6 +18,9 @@ func (a *application) Application() (*configs.ServerHttp, error) {
 	fmt.Println("Function use for set dependency injection by uber-dig")
 	appConstructors := []interface{}{
 		configs.NewServiceHttp,
+		repository.NewUserRepository,
+		services.NewUserService,
+		controllers.NewUserController,
 	}
 
 	for _, app := range appConstructors {

@@ -1,6 +1,6 @@
 app:
   env: "development"
-  port: ":8989"
+  port: ":8080"
   debug: true
 
 log:
