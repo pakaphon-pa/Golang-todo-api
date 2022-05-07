@@ -18,6 +18,8 @@ func (a *application) Application() (*configs.ServerHttp, error) {
 	fmt.Println("Function use for set dependency injection by uber-dig")
 	appConstructors := []interface{}{
 		configs.NewServiceHttp,
+		configs.NewDatabase,
+		configs.GetRedis,
 		repository.NewUserRepository,
 		services.NewUserService,
 		controllers.NewUserController,

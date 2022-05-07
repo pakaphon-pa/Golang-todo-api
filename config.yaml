@@ -13,3 +13,6 @@ database:
   username: "postgres"
   password: test
   dbname: postgres
+
+redis:
+  dsn: "redis:6379"
