@@ -3,14 +3,14 @@
 # Tool
 - [x] Gin
 - [ ] TestContainer
-- [ ] gorm
-- [ ] postgresql
+- [x] gorm
+- [x] postgresql
 - [x] viper env
 - [x] docker dev
 - [ ] docker prod
-- [ ] Dev env
+- [x] Dev env
 - [ ] Prod env
-- [ ] Redis
+- [x] Redis
 - [x] Dependency by Uber-dig
 - [x] air for reload dev env
 - [ ] error handler

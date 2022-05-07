@@ -12,7 +12,6 @@ type userRepository struct {
 
 func (u *userRepository) Find() ([]*models.User, error) {
 	var data []*models.User
-
 	u.db.Find(&data)
 	return data, nil
 }
