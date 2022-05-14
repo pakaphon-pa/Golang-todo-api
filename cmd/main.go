@@ -12,12 +12,17 @@ func main() {
 	viper.SetConfigFile(`./config.yaml`)
 	viper.AutomaticEnv() // for global env
 
-	err := viper.ReadInConfig()
-	if err != nil {
+	if err := viper.ReadInConfig(); err != nil {
 		panic(err)
 	}
 
-	if viper.GetString(`app.env`) == "development" {
+	var configuration configs.Config
+	err := viper.Unmarshal(&configuration)
+	if err != nil {
+		log.Fatalf("unable to decode into struct, %v", err)
+	}
+
+	if configuration.App.Env == "development" {
 		log.Println("Service RUN on Development mode")
 	}
 

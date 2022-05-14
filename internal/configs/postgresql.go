@@ -13,6 +13,7 @@ var DB *gorm.DB
 var err error
 
 func InitConnectDB() {
+
 	dbHost := viper.GetString(`database.host`)
 	dbPort := viper.GetString(`database.port`)
 	dbUser := viper.GetString(`database.username`)
