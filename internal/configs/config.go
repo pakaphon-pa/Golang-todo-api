@@ -1,7 +1,18 @@
 package configs
 
+import (
+	"fmt"
+	"log"
+
+	"github.com/spf13/viper"
+)
+
+var configuration Config
+
 type Config struct {
-	App App `mapstructure:"app"`
+	App      App      `mapstructure:"app"`
+	Database Database `mapstructure:"database"`
+	Redis    Redis    `mapstructure:"redis"`
 }
 
 type App struct {
@@ -10,24 +21,38 @@ type App struct {
 	Debug bool   `mapstructure:"debug"`
 }
 
-// func LoadConfig(path string) {
-// 	viper.SetConfigName("config.yaml")
-// 	viper.AddConfigPath("../../../")
-// 	viper.AutomaticEnv() // for global env
+type Database struct {
+	Host     string `mapstructure:"host"`
+	Port     string `mapstructure:"port"`
+	Username string `mapstructure:"username"`
+	Password string `mapstructure:"password"`
+	DbName   string `mapstructure:"dbname"`
+}
 
-// 	if err := viper.ReadInConfig(); err != nil {
-// 		panic(err)
-// 	}
+type Redis struct {
+	Dsn string `mapstructure:"dsn"`
+}
 
-// 	var configuration Config
-// 	err := viper.Unmarshal(&configuration)
-// 	if err != nil {
-// 		log.Fatalf("unable to decode into struct, %v", err)
-// 	}
-// 	fmt.Println(configuration.App)
-// 	fmt.Println(configuration.App.Debug)
+func LoadConfig(path string) {
+	viper.AddConfigPath(path)
+	viper.AutomaticEnv() // for global env
 
-// 	if configuration.App.Env == "development" {
-// 		log.Println("Service RUN on Development mode")
-// 	}
-// }
+	if err := viper.ReadInConfig(); err != nil {
+		panic(err)
+	}
+
+	err := viper.Unmarshal(&configuration)
+	if err != nil {
+		log.Fatalf("unable to decode into struct, %v", err)
+	}
+	fmt.Println(configuration.App)
+	fmt.Println(configuration.App.Debug)
+
+	if configuration.App.Env == "development" {
+		log.Println("Service RUN on Development mode")
+	}
+}
+
+func GetConfigs() Config {
+	return configuration
+}

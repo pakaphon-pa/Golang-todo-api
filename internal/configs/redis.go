@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/go-redis/redis/v8"
-	"github.com/spf13/viper"
 )
 
 type Db struct{}
@@ -13,9 +12,9 @@ type Db struct{}
 var Client *redis.Client
 var ctx = context.Background()
 
-func InitRedis() {
+func InitRedis(config Config) {
 	fmt.Println("Redis starting...")
-	dsn := viper.GetString(`redis.dsn`)
+	dsn := config.Redis.Dsn
 
 	if len(dsn) == 0 {
 		dsn = "redis:6379"

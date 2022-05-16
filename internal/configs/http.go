@@ -5,13 +5,12 @@ import (
 	"gotaskapp/internal/routes"
 
 	"github.com/gin-gonic/gin"
-
-	"github.com/spf13/viper"
 )
 
 type ServerHttp struct {
 	server  *gin.Engine
 	gateway controllers.GatewayController
+	configs Config
 }
 
 func (s *ServerHttp) HandleV1Route() {
@@ -22,12 +21,13 @@ func (s *ServerHttp) HandleV1Route() {
 
 func (s *ServerHttp) Start() error {
 	s.HandleV1Route()
-	return s.server.Run(viper.GetString(`app.port`))
+	return s.server.Run(s.configs.App.Port)
 }
 
-func NewServiceHttp(controller controllers.GatewayController) *ServerHttp {
+func NewServiceHttp(controller controllers.GatewayController, configs Config) *ServerHttp {
 	return &ServerHttp{
 		server:  gin.Default(),
 		gateway: controller,
+		configs: configs,
 	}
 }

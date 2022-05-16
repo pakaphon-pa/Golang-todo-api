@@ -3,7 +3,6 @@ package main
 import (
 	"gotaskapp/internal/app"
 	"gotaskapp/internal/configs"
-	"log"
 
 	"github.com/spf13/viper"
 )
@@ -16,18 +15,11 @@ func main() {
 		panic(err)
 	}
 
-	var configuration configs.Config
-	err := viper.Unmarshal(&configuration)
-	if err != nil {
-		log.Fatalf("unable to decode into struct, %v", err)
-	}
+	configs.LoadConfig("../../config.yaml")
 
-	if configuration.App.Env == "development" {
-		log.Println("Service RUN on Development mode")
-	}
-
-	configs.InitRedis()
-	configs.InitConnectDB()
+	config := configs.GetConfigs()
+	configs.InitRedis(config)
+	configs.InitConnectDB(config)
 
 	app, err := app.NewApplication().Application()
 	if err != nil {
