@@ -13,6 +13,7 @@ type Config struct {
 	App      App      `mapstructure:"app"`
 	Database Database `mapstructure:"database"`
 	Redis    Redis    `mapstructure:"redis"`
+	Jwt      Jwt      `mapstructure:"jwt"`
 }
 
 type App struct {
@@ -31,6 +32,11 @@ type Database struct {
 
 type Redis struct {
 	Dsn string `mapstructure:"dsn"`
+}
+
+type Jwt struct {
+	Access  string `mapstructure:"access_secret"`
+	Refresh string `mapstructure:"refresh_secret"`
 }
 
 func LoadConfig(path string) {

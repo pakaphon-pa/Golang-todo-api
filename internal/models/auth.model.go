@@ -16,4 +16,5 @@ type TokenDetails struct {
 
 type JwtServiceInterface interface {
 	CreateAuth(userId uint64, td *TokenDetails) error
+	CreateToken(userId uint64) (*TokenDetails, error)
 }
