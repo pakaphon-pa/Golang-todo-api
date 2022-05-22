@@ -4,8 +4,11 @@ go 1.18
 
 require (
 	github.com/gin-gonic/gin v1.7.7
+	github.com/go-redis/redis/v8 v8.11.5
 	github.com/spf13/viper v1.11.0
 	go.uber.org/dig v1.14.1
+	gorm.io/driver/postgres v1.3.5
+	gorm.io/gorm v1.23.5
 )
 
 require (
@@ -16,7 +19,6 @@ require (
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.10.1 // indirect
-	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
@@ -51,6 +53,4 @@ require (
 	gopkg.in/ini.v1 v1.66.4 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
-	gorm.io/driver/postgres v1.3.5 // indirect
-	gorm.io/gorm v1.23.5 // indirect
 )

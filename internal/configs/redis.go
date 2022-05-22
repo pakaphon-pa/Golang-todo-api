@@ -10,7 +10,7 @@ import (
 type Db struct{}
 
 var Client *redis.Client
-var ctx = context.Background()
+var Ctx = context.Background()
 
 func InitRedis(config Config) {
 	fmt.Println("Redis starting...")
@@ -24,7 +24,7 @@ func InitRedis(config Config) {
 		Addr: dsn,
 	})
 
-	_, err := Client.Ping(ctx).Result()
+	_, err := Client.Ping(Ctx).Result()
 
 	if err != nil {
 		panic(err)
