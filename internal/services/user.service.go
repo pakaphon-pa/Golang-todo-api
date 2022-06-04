@@ -1,8 +1,9 @@
 package services
 
 import (
-	"fmt"
 	"gotaskapp/internal/models"
+	"gotaskapp/pkg/customError"
+	"net/http"
 )
 
 type userService struct {
@@ -10,8 +11,12 @@ type userService struct {
 }
 
 func (s *userService) Get() ([]*models.User, error) {
-	fmt.Println("1111111111111111111")
+
 	return s.repo.Find()
+}
+
+func (s *userService) GetById() (*models.User, error) {
+	return nil, customError.NewHTTPError(http.StatusBadRequest, "Invalid", "invalid user id")
 }
 
 func NewUserService(userRepo models.UserRepositoryInterface) models.UserServiceInterface {

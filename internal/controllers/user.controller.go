@@ -17,6 +17,14 @@ func (c *UserController) GetUser(g *gin.Context) {
 	g.JSON(http.StatusOK, result)
 }
 
+func (c *UserController) GetUserById(g *gin.Context) {
+	_, err := c.userService.GetById()
+
+	if err != nil {
+		g.JSON(http.StatusOK, err)
+	}
+}
+
 func NewUserController(user models.UserServiceInterface) *UserController {
 	return &UserController{
 		userService: user,

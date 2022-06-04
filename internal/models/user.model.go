@@ -7,6 +7,7 @@ type User struct {
 
 type UserServiceInterface interface {
 	Get() ([]*User, error)
+	GetById() (*User, error)
 }
 
 type UserRepositoryInterface interface {
