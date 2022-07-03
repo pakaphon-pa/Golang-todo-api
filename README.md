@@ -33,6 +33,6 @@
 
 - [ ] Create Table database
 - [ ] CRUD Task
-- [ ] Auth
+- [ ] Auth ref: https://github.com/architagr/Golang-JWT-tutorial/blob/main/middleware/authorization.go
 - [ ] All Testing
 
