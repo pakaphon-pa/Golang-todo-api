@@ -28,7 +28,7 @@ func InitConnectDB(config Config) {
 	}
 
 	fmt.Println("database is ready.....")
-	DB.AutoMigrate(&models.User{}) // use for example
+	DB.AutoMigrate(&models.User{}, &models.Role{}) // use for example
 }
 
 func NewDatabase() *gorm.DB {

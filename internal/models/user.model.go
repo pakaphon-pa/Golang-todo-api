@@ -1,12 +1,15 @@
 package models
 
+import "time"
+
 type User struct {
-	ID       uint   `json:"id"`
-	Name     string `json:"name"`
-	Email    string `json:"email" gorm:"unique"`
-	Password string `json:"-"`
-	RoleId   uint   `json:"role_id"`
-	Roles    []Role `json:"roles" gorm:"foreignKey: RoleId"`
+	ID        uint      `json:"id" gorm:"primaryKey;autoIncrement:true"`
+	Name      string    `json:"name" gorm:"column:name"`
+	Email     string    `json:"email" gorm:"unique" `
+	Password  string    `json:"-"`
+	Roles     []Role    `json:"roles" gorm:"foreignKey:UserID"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at" gorm:"autoUpdateTime:true"`
 }
 
 type UserServiceInterface interface {
