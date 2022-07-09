@@ -7,7 +7,7 @@ type User struct {
 	Name      string    `json:"name" gorm:"column:name"`
 	Email     string    `json:"email" gorm:"unique" `
 	Password  string    `json:"-"`
-	Roles     []Role    `json:"roles" gorm:"foreignKey:UserID"`
+	Roles     []Role    `json:"roles" gorm:"many2many:user_roles"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" gorm:"autoUpdateTime:true"`
 }

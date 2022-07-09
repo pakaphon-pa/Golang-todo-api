@@ -25,6 +25,7 @@ type TestSuite struct {
 
 	userRepo    models.UserRepositoryInterface
 	userService models.UserServiceInterface
+	roleRepo    models.RoleRepositoryInterface
 }
 
 func TestInit(t *testing.T) {
@@ -90,4 +91,5 @@ func (s *TestSuite) SetupSuite() {
 func (s *TestSuite) SetupTest() {
 	s.userRepo = repository.NewUserRepository(s.db)
 	s.userService = services.NewUserService(s.userRepo)
+	s.roleRepo = repository.NewRoleRepository(s.db)
 }
