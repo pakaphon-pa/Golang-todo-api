@@ -36,3 +36,7 @@
 - [ ] Auth ref: https://github.com/architagr/Golang-JWT-tutorial/blob/main/middleware/authorization.go
 - [ ] All Testing
 
+# Note
+```
+    Test : go test ./... -v --cover
+```

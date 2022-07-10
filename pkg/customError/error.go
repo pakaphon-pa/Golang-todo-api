@@ -1,6 +1,12 @@
 package customError
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 type HttpError struct {
 	Code    int
@@ -13,6 +19,36 @@ func NewHTTPError(code int, key string, msg string) *HttpError {
 		Code:    code,
 		Key:     key,
 		Message: msg,
+	}
+}
+
+func HttpErrorCustomMiddleware() gin.HandlerFunc {
+	return httpErrorCustom(gin.ErrorTypeAny)
+}
+
+func httpErrorCustom(errType gin.ErrorType) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Next()
+		detectedErrors := c.Errors.ByType(errType)
+
+		log.Println("Handle APP error")
+		if len(detectedErrors) > 0 {
+			err := detectedErrors[0].Err
+			var parsedError *HttpError
+			switch err := err.(type) {
+			case *HttpError:
+				parsedError = err
+			default:
+				parsedError = &HttpError{
+					Code:    http.StatusInternalServerError,
+					Message: "Internal Server Error",
+				}
+			}
+			c.IndentedJSON(parsedError.Code, parsedError)
+			c.Abort()
+			return
+		}
+
 	}
 }
 

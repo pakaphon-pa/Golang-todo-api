@@ -3,6 +3,7 @@ package configs
 import (
 	"gotaskapp/internal/controllers"
 	"gotaskapp/internal/routes"
+	"gotaskapp/pkg/customError"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,6 +21,7 @@ func (s *ServerHttp) HandleV1Route() {
 }
 
 func (s *ServerHttp) Start() error {
+	s.server.Use(customError.HttpErrorCustomMiddleware())
 	s.HandleV1Route()
 	return s.server.Run(s.configs.App.Port)
 }
