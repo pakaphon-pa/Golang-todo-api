@@ -25,6 +25,7 @@ func (a *application) Application() (*configs.ServerHttp, error) {
 		services.NewUserService,
 		controllers.NewUserController,
 		repository.NewRoleRepository,
+		controllers.NewRoleController,
 	}
 
 	for _, app := range appConstructors {

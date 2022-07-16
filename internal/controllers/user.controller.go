@@ -13,17 +13,16 @@ type UserController struct {
 }
 
 func (c *UserController) GetUser(g *gin.Context) {
-	// result, _ := c.userService.Get()
+	result, _ := c.userService.Get()
 
-	// g.JSON(http.StatusOK, result)
-	g.Error(customError.NewHTTPError(404, "Not found", "Not found"))
+	g.JSON(http.StatusOK, result)
 }
 
 func (c *UserController) GetUserById(g *gin.Context) {
 	_, err := c.userService.GetById()
 
 	if err != nil {
-		g.JSON(http.StatusOK, err)
+		g.Error(customError.NewHTTPError(404, "Not found", "Not found"))
 	}
 }
 

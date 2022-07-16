@@ -18,6 +18,7 @@ func (s *ServerHttp) HandleV1Route() {
 	v1 := s.server.Group("/api/v1")
 
 	routes.UserRoutes(v1, s.gateway)
+	routes.RoleRoutes(v1, s.gateway)
 }
 
 func (s *ServerHttp) Start() error {

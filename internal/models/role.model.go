@@ -6,6 +6,10 @@ type Role struct {
 	Users []User `json:"users" gorm:"many2many:user_roles"`
 }
 
+type RoleRequest struct {
+	Name string `json:"name" validate:"required,len=3"`
+}
+
 type RoleServiceInterface interface {
 	Find() ([]*Role, error)
 	Save() (*Role, error)

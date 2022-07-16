@@ -6,4 +6,5 @@ type GatewayController struct {
 	dig.In
 
 	UserController *UserController
+	RoleController *RoleController
 }
