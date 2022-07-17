@@ -10,11 +10,11 @@ import (
 
 type HttpError struct {
 	Code    int
-	Key     string `json:"error"`
-	Message string `json:"message"`
+	Key     string      `json:"error"`
+	Message interface{} `json:"message"`
 }
 
-func NewHTTPError(code int, key string, msg string) *HttpError {
+func NewHTTPError(code int, key string, msg interface{}) *HttpError {
 	return &HttpError{
 		Code:    code,
 		Key:     key,

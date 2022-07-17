@@ -1,6 +1,7 @@
 package middlewarevalidator
 
 import (
+	"errors"
 	"gotaskapp/internal/models"
 	"gotaskapp/pkg/customError"
 	"net/http"
@@ -15,11 +16,18 @@ func RoleValidator() gin.HandlerFunc {
 		if err := c.ShouldBindJSON(&role); err == nil {
 			validate := validator.New()
 			if err := validate.Struct(&role); err != nil {
-				c.Error(customError.NewHTTPError(
-					http.StatusBadRequest,
-					"validate",
-					err.Error(),
-				))
+				validationErrors := err.(validator.ValidationErrors)
+				if errors.As(err, &validationErrors) {
+					messages := make([]FieldsError, len(validationErrors))
+					for i, fieldError := range validationErrors {
+						messages[i] = FieldsError{fieldError.Field(), fieldError.Tag()}
+					}
+					c.Error(customError.NewHTTPError(
+						http.StatusBadRequest,
+						"validate",
+						messages,
+					))
+				}
 				c.Abort()
 				return
 			}
