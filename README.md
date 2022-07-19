@@ -13,9 +13,9 @@
 - [x] Redis
 - [x] Dependency by Uber-dig
 - [x] air for reload dev env
-- [ ] error handler ref: https://github.com/gin-gonic/gin/issues/1952#issuecomment-508043499
-- [ ] custom error message code
-- [ ] validate
+- [x] error handler ref: https://github.com/gin-gonic/gin/issues/1952#issuecomment-508043499
+- [x] custom error message code
+- [x] validate
 
 # App function
 - [ ] login
