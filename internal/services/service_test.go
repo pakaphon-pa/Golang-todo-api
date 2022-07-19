@@ -1,4 +1,4 @@
-package test
+package services
 
 import (
 	"context"
@@ -6,7 +6,6 @@ import (
 	"gotaskapp/internal/configs"
 	"gotaskapp/internal/models"
 	"gotaskapp/internal/repository"
-	"gotaskapp/internal/services"
 	"gotaskapp/pkg/utility"
 	"log"
 	"testing"
@@ -20,20 +19,19 @@ import (
 	"gorm.io/gorm"
 )
 
-type TestSuite struct {
+type ServiceTestSuite struct {
 	suite.Suite
 	db *gorm.DB
 
-	userRepo    models.UserRepositoryInterface
 	userService models.UserServiceInterface
-	roleRepo    models.RoleRepositoryInterface
 }
 
-func TestInit(t *testing.T) {
-	suite.Run(t, new(TestSuite))
+func TestServiceTestSuite(t *testing.T) {
+	t.Parallel()
+	suite.Run(t, new(ServiceTestSuite))
 }
 
-func (s *TestSuite) SetupSuite() {
+func (s *ServiceTestSuite) SetupSuite() {
 	log.Println("Prepare DB....")
 	viper.SetConfigFile(`../../config.yaml`)
 	configs.LoadConfig("../../config.yaml")
@@ -86,11 +84,9 @@ func (s *TestSuite) SetupSuite() {
 	DB.AutoMigrate(&models.User{})
 	utility.LoadSampleData(DB)
 	s.db = DB
-
 }
 
-func (s *TestSuite) SetupTest() {
-	s.userRepo = repository.NewUserRepository(s.db)
-	s.userService = services.NewUserService(s.userRepo)
-	s.roleRepo = repository.NewRoleRepository(s.db)
+func (s *ServiceTestSuite) SetupTest() {
+	userRepo := repository.NewUserRepository(s.db)
+	s.userService = NewUserService(userRepo)
 }
