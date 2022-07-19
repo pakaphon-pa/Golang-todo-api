@@ -3,6 +3,7 @@ package configs
 import (
 	"fmt"
 	"gotaskapp/internal/models"
+	"gotaskapp/pkg/utility"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -29,6 +30,8 @@ func InitConnectDB(config Config) {
 
 	fmt.Println("database is ready.....")
 	DB.AutoMigrate(&models.User{}, &models.Role{}) // use for example
+
+	utility.LoadSampleData(DB)
 }
 
 func NewDatabase() *gorm.DB {

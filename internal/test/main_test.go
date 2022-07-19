@@ -7,8 +7,8 @@ import (
 	"gotaskapp/internal/models"
 	"gotaskapp/internal/repository"
 	"gotaskapp/internal/services"
+	"gotaskapp/pkg/utility"
 	"log"
-	"os"
 	"testing"
 
 	"github.com/docker/go-connections/nat"
@@ -82,14 +82,9 @@ func (s *TestSuite) SetupSuite() {
 		panic(err)
 	}
 
-	fmt.Println("database is ready.....")
+	log.Println("database is ready.....")
 	DB.AutoMigrate(&models.User{})
-	pathToFile := "../../fixtures.sql"
-	q, err := os.ReadFile(pathToFile)
-	if err != nil {
-		log.Fatal("fixtures:", err)
-	}
-	DB.Exec(string(q))
+	utility.LoadSampleData(DB)
 	s.db = DB
 
 }
