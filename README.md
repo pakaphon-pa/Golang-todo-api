@@ -38,5 +38,5 @@
 
 # Note
 ```
-    Test : go test ./... -v --cover
+    Test : go test -tags=integration  ./... -v --coverprofile coverage.out ./...
 ```
