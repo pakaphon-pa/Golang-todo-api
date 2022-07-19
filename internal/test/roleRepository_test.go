@@ -1,6 +1,8 @@
 package test
 
-import "gotaskapp/internal/models"
+import (
+	"gotaskapp/internal/models"
+)
 
 func (s *TestSuite) Test_CreateRole() {
 	var role = models.Role{
@@ -14,7 +16,6 @@ func (s *TestSuite) Test_CreateRole() {
 
 func (s *TestSuite) Test_GetAllRole() {
 	result, err := s.roleRepo.Get()
-
 	s.Assert().NoError(err)
-	s.Assert().Len(result, 1)
+	s.Assert().NotEmpty(result)
 }
