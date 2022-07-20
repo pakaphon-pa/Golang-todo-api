@@ -1,6 +1,0 @@
-projectKey=toapp
-serverUrl=http://localhost:9000
-serverVersion=9.5.0.56709
-dashboardUrl=http://localhost:9000/dashboard?id=toapp
-ceTaskId=AYIZK8tnj7n4cbhyArQn
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYIZK8tnj7n4cbhyArQn
