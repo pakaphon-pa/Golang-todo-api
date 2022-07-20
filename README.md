@@ -38,5 +38,8 @@
 
 # Note
 ```
-    Test : go test -tags=integration  ./... -v --coverprofile coverage.out ./...
+    Test : go test -tags=integration  ./... -coverprofile="tmp/cov.out"
+
+    Sonar-scanner : docker run --rm --net host -v ${PWD}:/usr/src sonarsource/sonar-scanner-cli:latest sonar-scanner -D"sonar.projectKey=somekey" -D"sonar.sources=/usr/src" -D"sonar.host.url=some url" -D"sonar.login=sometoken"
+
 ```
