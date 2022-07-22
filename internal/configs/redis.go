@@ -13,6 +13,7 @@ var Client *redis.Client
 var Ctx = context.Background()
 
 func InitRedis(config Config) {
+
 	fmt.Println("Redis starting...")
 	dsn := config.Redis.Dsn
 

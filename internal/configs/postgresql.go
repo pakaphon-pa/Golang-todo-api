@@ -3,8 +3,6 @@ package configs
 import (
 	"fmt"
 	"gotaskapp/internal/models"
-	"log"
-	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -31,13 +29,6 @@ func InitConnectDB(config Config) {
 
 	fmt.Println("database is ready.....")
 	DB.AutoMigrate(&models.User{}, &models.Role{}) // use for example
-
-	pathToFile := "../../fixtures.sql"
-	q, err := os.ReadFile(pathToFile)
-	if err != nil {
-		log.Fatal("fixtures:", err)
-	}
-	DB.Exec(string(q))
 
 }
 

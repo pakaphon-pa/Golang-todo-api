@@ -6,6 +6,9 @@ import (
 	"gotaskapp/internal/configs"
 	"gotaskapp/internal/models"
 	"gotaskapp/pkg/utility"
+	"path"
+	"path/filepath"
+	"runtime"
 
 	"log"
 
@@ -18,9 +21,14 @@ import (
 )
 
 func PostgresqlTestContainer() *gorm.DB {
+	// Relative on runtime DIR:
+	_, b, _, _ := runtime.Caller(0)
+	d1 := path.Join(path.Dir(b), "../../")
+	fmt.Println("Relative", filepath.Join(d1, "/config.yaml"))
+
 	log.Println("Prepare DB....")
-	viper.SetConfigFile(`../../config.yaml`)
-	configs.LoadConfig("../../config.yaml")
+	viper.SetConfigFile(filepath.Join(d1, "/config.yaml"))
+	configs.LoadConfig(filepath.Join(d1, "/config.yaml"))
 
 	err := viper.ReadInConfig()
 	if err != nil {
