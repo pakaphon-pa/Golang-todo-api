@@ -2,6 +2,7 @@
 FROM golang:alpine as builder
 
 ENV GO11MODULE=on
+ENV DOCKER_HOST=tcp://host.docker.internal:2375
 
 # Install git.
 # Git is required for fetching the dependencies.
@@ -19,19 +20,22 @@ RUN go mod download
 # Copy the source from the current directory to the working Directory inside the container 
 COPY . .
 
-# Build the Go app
-# RUN make build
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o bin/server cmd/**/*.go
 
-# Start a new stage from scratch
-FROM scratch
+RUN go test -tags=integration  ./... -coverprofile="tmp/cov.out"
 
-# # Copy the Pre-built binary file from the previous stage. Observe we also copied the .env file
-COPY --from=builder /app/bin/server /app/bin/server
-COPY --from=builder /app/config.yaml /app
+# # Build the Go app
+# # RUN make build
+# RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o bin/server cmd/**/*.go
 
-# # Expose port 8080 to the outside world
-# EXPOSE 8080
+# # Start a new stage from scratch
+# FROM scratch
 
-# #Command to run the executable
-CMD ["./app/bin/server"]
+# # # Copy the Pre-built binary file from the previous stage. Observe we also copied the .env file
+# COPY --from=builder /app/bin/server /app/bin/server
+# COPY --from=builder /app/config.yaml /app
+
+# # # Expose port 8080 to the outside world
+# # EXPOSE 8080
+
+# # #Command to run the executable
+# CMD ["./app/bin/server"]

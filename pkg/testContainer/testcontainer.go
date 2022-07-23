@@ -64,7 +64,10 @@ func PostgresqlTestContainer() *gorm.DB {
 		log.Fatal("map:", err)
 	}
 
-	dbHost := "localhost"
+	dbHost, err := postgres.Host(context.Background())
+	if err != nil {
+		log.Fatal("host:", err)
+	}
 	dbName := viper.GetString(`database.dbname`)
 
 	connection := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Bangkok", dbHost, dbUser, dbPass, dbName, port.Port())
