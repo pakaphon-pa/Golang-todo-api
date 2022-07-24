@@ -3,6 +3,9 @@ package configs
 import (
 	"fmt"
 	"log"
+	"path"
+	"path/filepath"
+	"runtime"
 
 	"github.com/spf13/viper"
 )
@@ -39,8 +42,19 @@ type Jwt struct {
 	Refresh string `mapstructure:"refresh_secret"`
 }
 
-func LoadConfig(path string) {
-	viper.AddConfigPath(path)
+const (
+	defaultConfigName string = "config"
+	defaultConfigType string = "yaml"
+)
+
+func LoadConfig() {
+	_, currentDir, _, _ := runtime.Caller(0)
+	rootProjectPath := path.Join(path.Dir(currentDir), "../../")
+	fmt.Println("Relative", filepath.Join(rootProjectPath, "/config.yaml"))
+
+	viper.SetConfigName(defaultConfigName)
+	viper.SetConfigType(defaultConfigType)
+	viper.AddConfigPath(rootProjectPath)
 	viper.AutomaticEnv() // for global env
 
 	if err := viper.ReadInConfig(); err != nil {
